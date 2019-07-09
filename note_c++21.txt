@@ -1,0 +1,24 @@
+graph 0.33422 11.968 2.3846
+node cplus21day 0.63889 1.4679 1.2778 0.5 cplus21day solid box black lightgrey
+node 模板 2.184 1.4679 0.81243 0.5 模板 solid ellipse black lightgrey
+node "参数数量可变的模板是 2014 年发布的 C++14 新增的" 7.5293 2.1346 6.4272 0.5 "参数数量可变的模板是 2014 年发布的 C++14 新增的" solid ellipse black lightgrey
+node "它初始化模板类的静态成员：
+        template<typename T> int TestStatic<T>::staticVal;
+        对于模板类的静态成员，通用的初始化语法如下：
+        \
+template<template parameters> StaticType
+        ClassName<Template Arguments>::StaticVarName;" 7.5293 0.81514 8.8781 1.6303 "它初始化模板类的静态成员：
+        template<typename T> int TestStatic<T>::staticVal;
+        对于模板类的静态成员，通用的初始化语法如下：
+        \
+template<template parameters> StaticType
+        ClassName<Template Arguments>::StaticVarName;" solid ellipse black lightgrey
+edge cplus21day 模板 4 1.2787 1.4679 1.3969 1.4679 1.5196 1.4679 1.6348 1.4679 solid black
+edge 模板 "参数数量可变的模板是 2014 年发布的 C++14 新增的" 7 2.5319 1.5975 2.6974 1.6564 2.9017 1.7213 3.0902 1.7596 3.5896 1.8609 4.1261 1.935 4.6473 1.989 solid black
+edge 模板 "它初始化模板类的静态成员：
+        template<typename T> int TestStatic<T>::staticVal;
+        对于模板类的静态成员，通用的初始化语法如下：
+        \
+template<template parameters> StaticType
+        ClassName<Template Arguments>::StaticVarName;" 4 2.5846 1.4204 2.8542 1.3873 3.2445 1.3394 3.6891 1.2849 solid black
+stop
