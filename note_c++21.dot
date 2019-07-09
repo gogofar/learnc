@@ -11,5 +11,5 @@ digraph cplus21day{
         对于模板类的静态成员，通用的初始化语法如下：
         template<template parameters> StaticType
         ClassName<Template Arguments>::StaticVarName;"
-        "fef";
+
 }
