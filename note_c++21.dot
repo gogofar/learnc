@@ -1,0 +1,19 @@
+digraph cplus21day{
+        size = "4,4";
+        edge [fontname="simsun"];
+        node [fontname="simsun"];
+        rankdir=LR;
+        cplus21day[shape=box];
+        cplus21day ->"模板";
+        "模板"->"参数数量可变的模板是 2014 年发布的 C++14 新增的";
+        "模板"->"它初始化模板类的静态成员：
+        template<typename T> int TestStatic<T>::staticVal;
+        对于模板类的静态成员，通用的初始化语法如下：
+        template<template parameters> StaticType
+        ClassName<Template Arguments>::StaticVarName;";
+        "模板"->"真好";
+
+
+
+
+}
