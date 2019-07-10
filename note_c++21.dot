@@ -4,16 +4,37 @@ digraph cplus21day{
         node [fontname="simsun"];
         rankdir=LR;
         cplus21day[shape=box];
-        cplus21day ->"模板";
+        cplus21day ->{"模板","标准模板库"};
         "模板"->"参数数量可变的模板是 2014 年发布的 C++14 新增的";
-        "模板"->"它初始化模板类的静态成员：
+        "模板"->"它初始化模板类的静态成员:
         template<typename T> int TestStatic<T>::staticVal;
-        对于模板类的静态成员，通用的初始化语法如下：
+        对于模板类的静态成员，通用的初始化语法如下:
         template<template parameters> StaticType
-        ClassName<Template Arguments>::StaticVarName;";
-        "模板"->"真好";
-
-
-
+        ClassName<Template Arguments>::StaticVarName;"
+        "标准模板库"->{"顺序容器","关联容器","容器适配器","STL 迭代器","STL 算法"};
+        "顺序容器"->"std::vector,在最后插入数据";
+        "顺序容器"->"std::deque,与 std::vector 类似，但允许在开头插入或删除元素";
+        "顺序容器"->"std::list,操作与双向链表一样,可在任何位置添加或删除对象";
+        "顺序容器"->"std::forward_list,类似于 std::list，但是单向链表，只能沿一个方向遍历";
+        "关联容器"->"std::set,存储各不相同的值，在插入时进行排序；容器的复杂度为对数";
+        "关联容器"->"std::unordered_set：存储各不相同的值，在插入时进行排序；容器的复杂度为常数。";
+        "关联容器"->"std::map：存储键-值对，并根据唯一的键排序；容器的复杂度为对数";
+        "关联容器"->"std::unordered_map：存储键-值对，并根据唯一的键排序；容器的复杂度为对数。这种容器是
+        C++11 新增的";
+        "关联容器"->"std::multiset：与 set 类似，但允许存储多个值相同的项，即值不需要是唯一的";
+        "关联容器"->"std::unordered_multiset：与 unordered_set 类似，但允许存储多个值相同的项，即值不需要是唯
+        一的。这种容器是 C++11 新增的";
+        "关联容器"->"std::multimap：与 map 类似，但不要求键是唯一的";
+        "关联容器"->"std::unordered_multimap：与 unordered_map 类似，但不要求键是唯一的。这种容器是 C++11
+        新增的";
+        "容器适配器"->"std::stack：以 LIFO（后进先出）的方式存储元素，让您能够在栈顶插入（压入）和删除（弹
+        出）元素";
+        "容器适配器"->"std::queue：以 FIFO（先进先出）的方式存储元素，让您能够删除最先插入的元素";
+        "容器适配器"->"std::priority_queue：以特定顺序存储元素，因为优先级最高的元素总是位于队列开头";
+        "STL 算法"->"std::find：在集合中查找值";
+        "STL 算法"->"std::find_if：根据用户指定的谓词在集合中查找值";
+        "STL 算法"->"std::reverse：反转集合中元素的排列顺序。";
+        "STL 算法"->"std::remove_if：根据用户定义的谓词将元素从集合中删除";
+        "STL 算法"->"std::transform：使用用户定义的变换函数对容器中的元素进行变换";
 
 }
