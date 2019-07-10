@@ -1,0 +1,35 @@
+修改文件后可用
+  git add -u  //创建了新文件，可以用add -i
+  git commit
+  git push
+或者git commit -a
+————————————————————————————————————————————
+如果你修改的文件，别人已经提交了新的版本，会产生错误unrelated-histories，可用命令：
+git stash  //将本地版本放入栈中，再运行pull命令
+git pull learnc(分支名) master
+
+如果在家中工作，可以用分支
+git push home
+——————————————————————————————————————————————
+在现场的版本控制方法：
+  git init //在需要版本控制的目录下初始化
+
+添加文件并提交
+  git add -A
+  git commit -m "init"
+
+为初始提交一个里程碑："v1"
+  git tag v1
+
+开始在工作区工作，交提交
+  git commit -a
+
+最后离开时可以用以下命令将所有修改记录结果带走，得到patch文件
+  git format-patch v1..HEAD
+
+将 patch 文件邮件发走或使用其他工具带走
+  git send-email *.patch
+
+patch导入时不能使用gnu提供的patch命令，而要使用git提供的命令。
+  git apply patch文件
+  git commit -a
