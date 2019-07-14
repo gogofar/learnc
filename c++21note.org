@@ -2,6 +2,130 @@
 
 *C++21天
 **STL String类
+***实例化
+const char* constCStyleString = "Hello String!";
+std::string strFromConst (constCStyleString);
+
+std::string strFromConst = constCStyleString;
+
+std::string str2 ("Hello String!");
+
+// Initialize a string to the first 5 characters of another
+std::string strPartialCopy (constCStyleString, 5);
+
+// Initialize a string object to contain 10 'a's
+std::string strRepeatChars (10, 'a');
+
+***拼接字符串
+要拼接字符串，可使用运算符+=，也可使用成员函数 append()：
+string sampleStr1 ("Hello");
+string sampleStr2 (" String! ");
+sampleStr1 += sampleStr2; // use std::string::operator+=
+// alternatively use std::string::append()
+sampleStr1.append (sampleStr2); // (overloaded for char* too)
+
+***查找字符串
+// Find substring "day" in sampleStr, starting at position 0
+size_t charPos = sampleStr.find ("day", 0);
+// Check if the substring was found, compare against string::npos
+if (charPos != string::npos) //npos指一个不存在的位置
+ cout << "First instance of \"day\" was found at position " << charPos;
+else
+ cout << "Substring not found." << endl;
+
+***截短字符串
+string sampleStr ("Hello String! Wake up to a beautiful day!");
+sampleStr.erase (13, 28); // Hello String!
+
+在给定指向字符的迭代器时删除该字符。
+sampleStr.erase (iCharS); // iterator points to a specific character
+• 在给定由两个迭代器指定的范围时删除该范围内的字符。
+sampleStr.erase (sampleStr.begin (), sampleStr.end ()); // erase from begin to
+end
+
+***字符串大小写转换
+transform(inStr.begin(), inStr.end(), inStr.begin(), ::toupper);
+
+transform(inStr.begin(), inStr.end(), inStr.begin(), ::tolower);
+
+
+**STL动态数组
+***实例化
+std::vector<int> dynIntArray; // vector containing integers
+std::vector<float> dynFloatArray; // vector containing floats
+std::vector<Tuna> dynTunaArray; // vector containing Tunas
+
+// vector initialized using C++11 list initialization
+std::vector<int> initVector{ 202, 2017, -1 };
+
+// Instantiate a vector with 10 elements (it can still grow)
+std::vector<int> tenElements (10);
+
+// Instantiate a vector with 10 elements, each initialized to 90
+std::vector<int> tenElemInit (10, 90);
+
+要声明指向 list 中元素的迭代器，可以这样做：
+std::vector<int>::const_iterator elementInVec;
+
+***STL deque类
+deque.push_back()
+deque.push_front()
+
+** STL list 和 forward_list
+***实例化
+std::list<int> linkInts;
+std::list<float> listFloats; // list containing floats
+std::list<Tuna> listTunas; // list containing objects of type Tuna
+要声明一个指向 list 中元素的迭代器，可以像下面这样做：
+std::list<int>::const_iterator elementInList;
+
+***在 list 开头或末尾插入元素
+linkInts.push_back (-1);
+linkInts.push_front (2001);
+
+***在 list 中间插入元素
+iterator insert(iterator pos, const T& x)
+
+void insert(iterator pos, size_type n, const T& x)//插入n个x
+
+template <class InputIterator>
+void insert(iterator pos, InputIterator f, InputIterator l)
+
+*** 删除元素 反转元素
+list.erase()
+list.reverse()
+***元素排序
+list.sort
+
+二元谓词参数方式
+bool SortPredicate_Descending (const int& lhs, const int& rhs)
+{
+ // define criteria for list::sort: return true for desired order
+ return (lhs > rhs);
+}
+linkInts.sort (SortPredicate_Descending);
+
+**STL集合类
+***实例化
+std::set <Tuna> tunaSet;
+std::multiset <Tuna> tunaMSet;
+***迭代器
+std::set<int>::const_iterator element;
+std::multiset<int>::const_iterator element;
+***排序谓词
+template <typename T>
+struct SortDescending
+{
+ bool operator()(const T& lhs, const T& rhs) const
+ {
+ return (lhs > rhs);
+ }
+};
+然后，在实例化 set 或 multiset 时指定该谓词，如下所示：
+// a set and multiset of integers (using sort predicate)
+set <int, SortDescending<int>> setInts;
+multiset <int, SortDescending<int>> msetInts;
+
 **STL映射类
 ***unordered_map
 无论使用的键是什么，都不要编写依赖于 unordered_map 中元素排列顺序的代码。在
@@ -12,3 +136,319 @@ std::unordered_map 的插入和查找时间几乎是固定的，不受包含
 的元素数的影响。然而，这并不意味着它优于在各种情形下复杂度都为对数的 std::map。
 在包含的元素不太多的情况下，固定时间可能长得多，导致 std::unordered_map 的速度比
 std::map 慢。
+
+***实例化
+map<int, string> mapIntToStr1;
+18: multimap<int, string> mmapIntToStr1;
+
+**STL算法
+***非变序算法
+| 算法                      | 描述                                                                                                                          |
+|---------------------------+-------------------------------------------------------------------------------------------------------------------------------|
+| count()                   | 在指定范围内查找值与指定值匹配的所有元素                                                                                      |
+| count_if()                | 在指定范围内查找值满足指定条件的所有元素                                                                                      |
+| search()                  | 在目标范围内，根据元素相等性（即运算符==）或指定二元谓词搜索第一个满足条件的元素                                              |
+| search_n()                | 在目标范围内搜索与指定值相等或满足指定谓词的 n 个元素                                                                         |
+| find()                    | 在给定范围内搜索与指定值匹配的第一个元素                                                                                      |
+| find_if()                 | 在给定范围内搜索满足指定条件的第一个元素                                                                                      |
+| find_end()                | 在指定范围内搜索最后一个满足特定条件的元素                                                                                    |
+| find_first_of()           | 在目标范围内搜索指定序列中的任何一个元素第一次出现的位置；在另一个重载版本中，它搜索 find_first_of() 满足指定条件的第一个元素 |
+| adjacent_find()           | 在集合中搜索两个相等或满足指定条件的元素                                                                                      |
+| equal()                   | 比较两个元素是否相等或使用指定的二元谓词判断两者是否相等                                                                      |
+| mismatch()                | 使用指定的二元谓词找出两个元素范围的第一个不同的地方                                                                          |
+| lexicographical_compare() | 比较两个序列中的元素，以判断哪个序列更小                                                                                      |
+|                           |                                                                                                                               |
+
+***变序算法
+| 算法                 | 描述                                                                                                                       |
+|----------------------+----------------------------------------------------------------------------------------------------------------------------|
+| 初始化算法           |                                                                                                                            |
+| fill()               | 将指定值分配给指定范围中的每个元素                                                                                         |
+| fill_n()             | 将指定值分配给指定范围中的前 n 个元素                                                                                      |
+| generate()           | 将指定函数对象的返回值分配给指定范围中的每个元素                                                                           |
+| generate_n()         | 将指定函数的返回值分配给指定范围中的前 n 个元素                                                                            |
+| 修改算法             |                                                                                                                            |
+| for_each()           | 对指定范围内的每个元素执行指定的操作。当指定的参数修改了范围时，for_each 将是变序算法                                      |
+| transform()          | 对指定范围中的每个元素执行指定的一元函数                                                                                   |
+| 复制算法             |                                                                                                                            |
+| copy()               | 将一个范围复制到另一个范围                                                                                                 |
+| copy_backward()      | 将一个范围复制到另一个范围，但在目标范围中将元素的排列顺序反转                                                             |
+| 删除算法             |                                                                                                                            |
+| remove()             | 将指定范围中包含指定值的元素删除                                                                                           |
+| remove_if()          | 将指定范围中满足指定一元谓词的元素删除                                                                                     |
+| remove_copy()        | 将源范围中除包含指定值外的所有元素复制到目标范围                                                                           |
+| remove_copy_if()     | 将源范围中除满足指定一元谓词外的所有元素复制到目标范围                                                                     |
+| unique()             | 比较指定范围内的相邻元素，并删除重复的元素。该算法还有一个重载版本，它使用二元谓词来 unique() 判断要删除哪些元素           |
+| unique_copy()        | 将源范围内的所有元素复制到目标范围，但相邻的重复元素除外                                                                   |
+| 替换算法             |                                                                                                                            |
+| replace()            | 用一个值来替换指定范围中与指定值匹配的所有元素                                                                             |
+| replace_if()         | 用一个值来替换指定范围中满足指定条件的所有元素                                                                             |
+| 排序算法             |                                                                                                                            |
+| sort()               | 使用指定的排序标准对指定范围内的元素进行排序，排序标准由二元谓词提供。排序可能改变相等元素的相对顺序                       |
+| stable_sort()        | 类似于 sort，但在排序时保持相对顺序不变                                                                                    |
+| partial_sort()       | 将源范围内指定数量的元素排序                                                                                               |
+| partial_sort_copy()  | 将源范围内的元素复制到目标范围，同时对它们排序                                                                             |
+| 分区算法             |                                                                                                                            |
+| partition()          | 在指定范围中，将元素分为两组：满足指定一元谓词的元素放在第一个组中，其他元素放在第二组中。不一定会保持集合中元素的相对顺序 |
+| stable_partition()   | 与 partition 一样将指定范围分为两组，但保持元素的相对顺序不变                                                              |
+| 可用于有序容器的算法 |                                                                                                                            |
+| binary_search()      | 用于判断一个元素是否存在于一个排序集合中                                                                                   |
+| lower_bound()        | 根据元素的值或二元谓词判断元素可能插入到排序集合中的第一个位置，并返回一个指向该位置的迭代器                               |
+| upper_bound()        | 根据元素的值或二元谓词判断元素可能插入到排序集合中的最后一个位置，并返回一个指向该位置的迭代器                             |
+
+
+***复制和删除
+copy 沿向前的方向将源
+范围的内容赋给目标范围：
+auto lastElement = copy (numsInList.cbegin(), // start source range
+ numsInList.cend(), // end source range
+ numsInVec.begin()); // start dest range
+
+copy_if( )是 C++11 新增的，仅在指定的一元谓词返回 true 时才复制元素：
+// copy odd numbers from list into vector
+copy_if (numsInList.cbegin(), numsInList.cend(),
+ lastElement, // copy position in dest range
+ [](int element){return ((element % 2) == 1);});
+
+copy_backward( )沿向后的方向将源范围的内容赋给目标范围：
+copy_backward (numsInList.cbegin (),
+ numsInList.cend (),
+ numsInVec.end ());
+
+remove( )将容器中与指定值匹配的元素删除：
+// Remove all instances of '0', resize vector using erase()
+auto newEnd = remove (numsInVec.begin (), numsInVec.end (), 0);
+numsInVec.erase (newEnd, numsInVec.end ()); //必须擦除，否则会用最后一个元素填充
+移动后的空位
+
+remove_if( )使用一个一元谓词，并将容器中满足该谓词的元素删除：
+// Remove all odd numbers from the vector using remove_if
+newEnd = remove_if (numsInVec.begin (), numsInVec.end (),
+ [](int num) {return ((num % 2) == 1);} ); //predicate
+numsInVec.erase (newEnd, numsInVec.end ()); // resizing
+
+
+
+***替换值
+cout << "Using 'std::replace' to replace value 5 by 8" << endl;
+replace (numsInVec.begin (), numsInVec.end (), 5, 8);
+
+replace_if( )需要一个用户指定的一元谓词，对于要替换的每个值，该谓词都返回 true：
+cout << "Using 'std::replace_if' to replace even values by -1" << endl;
+replace_if (numsInVec.begin (), numsInVec.end (),
+ [](int element) {return ((element % 2) == 0); }, -1);
+
+***排序、在有序集合中搜索以及删除重复元素
+要删除相邻的重复值，可使用 unique( )：
+auto newEnd = unique (numsInVec.begin (), numsInVec.end ());
+numsInVec.erase (newEnd, numsInVec.end ()); // to resize
+
+要进行快速查找，可使用 STL 算法 binary_search( )，这种算法只能用于有序容器：
+bool elementFound = binary_search (numsInVec.begin (), numsInVec.end (), 2011);
+if (elementFound)
+ cout << "Element found in the vector!" << endl
+
+***将范围分区
+std::partition( )将输入范围分为两部分：一部分满足一元谓词；另一部分不满足：
+bool IsEven (const int& num) // unary predicate
+{
+ return ((num % 2) == 0);
+}
+...
+partition (numsInVec.begin(), numsInVec.end(), IsEven);
+
+std::partition( )不保证每个分区中元素的相对顺序不变。在相对顺序很重要，需要保持不变
+时，应使用 std::stable_partition( )：
+stable_partition (numsInVec.begin(), numsInVec.end(), IsEven);
+
+**自适应容器
+***栈
+栈是 LIFO（后进先出）系统，只能从栈顶插入或删除元素。
+
+***队列
+队列是 FIFO（先进先出）系统，元素被插入到队尾，最先插入的元素最先删除。
+
+****实例化
+std::stack <int> numsInStack;
+要创建存储类（如 Tuna）对象的栈，可使用下述代码：
+std::stack <Tuna> tunasInStack;
+要创建使用不同底层容器的栈，可使用如下代码：
+std::stack <double, vector <double>> doublesStackedInVec;
+
+操作函数:
+push()
+pop()
+empty()
+size()
+top()
+
+*** STL queue类
+STL queue 是一个模板类，要使用它，必须包含头文件<queue>。queue 是一个泛型类，只允许在
+末尾插入元素以及从开头删除元素
+ stack 一样，也可使用一个 queue 来实例化另一个 queue：
+std::queue<int> copyQ(numsInQ);
+
+std::queue的实例化与stack类似
+
+相关函数:
+push()
+pop()
+front()
+back()
+empty()
+size()
+
+***使用 STL 优先级队列
+STL priority_queue 是一个模板类，要使用它，也必须包含头文件<queue>。priority_queue 与 queue
+的不同之处在于，包含最大值（或二元谓词认为是最大值）的元素位于队首，且只能在队首
+执行操作。
+
+**使用STL位标志
+***使用std::bitset及其成员
+运算符<< 将位序列的文本表示插入到输出流中
+cout << fourBits;
+
+运算符>> 将一个字符串插入到 bitset 对象中
+“0101” >> fourBits;
+
+运算符& 执行按位与操作
+bitset <4> result (fourBits1 & fourBits2);
+
+运算符| 执行按位或操作
+bitwise <4> result (fourBits1 | fourBits2);
+
+运算符^ 执行按位异或操作
+bitwise <4> result (fourBits1 ^ fourBits2);
+
+运算符～ 执行按位取反操作
+bitwise <4> result (~fourBits1);
+
+执行按位右移操作 运算符 >>= fourBits >>= (2); //右移两位
+
+执行按位左移操作 运算符<<= fourBits <<= (2); // 左移两位
+
+返回指向位序列中第（N+1）位的引用
+运算符[N] fourBits [2] = 0; // 将第 3 位设置为 0
+bool bNum = fourBits [2]; //读取第 3 位
+
+***std::bitset 的成员方法
+set() 将序列中的所有位都设置为 1
+fourBits.set ( ); //现在序列包含 1111
+
+set() 将序列中的所有位都设置为 1
+ fourBits.set ( ); //现在序列包含 1111
+
+set (N, val=1)  将第 N+1 位设置为 val 指定的值（默认为 1）
+fourBits.set (2, 0); // 将第 3 位设置为 0
+
+reset() 将序列中的所有位都重置为 0
+ fourBits.reset ( ); // 现在序列包含 0000
+
+ reset (N) 将偏移位置为（N+1）的位清除
+fourBits.reset (2); //现在第 3 位的值为 0
+
+flip() 将位序列中的所有位取反
+fourBits.flip ( ); // 0101 将变为 1010
+ size() 返回序列中的位数
+size_t numBits = fourBits.size ( ); // 返回 4
+count() 返回序列中值为 1 的位数
+size_t numBitsSet = fourBits.count ( );
+size_t numBitsReset = fourBits.size ( ) – fourBits.count ( );
+
+***vector<bool>
+实例化 vector<bool>的方式与实例化 vector 类似，有一些方便的重载构造函数可供使用：
+vector <bool> boolFlags1;
+例如，可创建一个这样的 vector，即它最初包含 10 个布尔元素，且每个元素都被初始化为 1（即
+true）：
+vector <bool> boolFlags2 (10, true);
+还可使用一个 vector<bool>创建另一个 vector<bool>：
+vector <bool> boolFlags2Copy (boolFlags2);
+
+
+**智能指针
+C++智能指针是包含重载运算符的类，其行为像常规指针，但智能指针能够及时、妥
+善地销毁动态分配的数据，并实现了明确的对象生命周期，因此更有价值。
+
+smart_pointer<SomeClass> spData = anObject.GetData ();
+// Use a smart pointer like a conventional pointer!
+spData->Display ();
+(*spData).Display ();
+// Don't have to worry about de-allocation
+// (the smart pointer's destructor does it for you)
+
+***智能指针类型
+深复制
+
+写时复制机制
+
+引用计数智能指针
+引用计数是一种记录对象的用户数量的机制。当计数降低到零后，便将对象释放。因此，引用计
+数提供了一种优良的机制，使得可共享对象而无法对其进行复制。这种智能指针被复制时，
+需要将对象的引用计数加 1。
+
+引用链接智能指针
+之所以称为引用链接，是因为其实现是基于双向链表的。通过复制智能指针来创建新智能指针时，
+新指针将被插入到链表中。当智能指针离开作用域进而被销毁时，析构函数将把它从链表中
+删除。引用计数的指针一样，引用链接指针也存在生命周期依赖性导致的问题。
+
+破坏性复制
+虽然破坏性复制机制使用起来并不直观，但它有一个优点，即可确保任何时刻只有一个活动指针
+指向对象。因此，它非常适合从函数返回指针以及需要利用其“破坏性”的情形。
+
+C++11 摒弃了std::auto_ptr，您应使用 std::unque_ptr，这种指针不能按值传递，而只能按引用传递，因
+为其复制构造函数和复制赋值运算符都是私有的。
+不能接受 const 引用，因为它在复制源引用后使其无效。这不仅不符合传统复
+制构造函数和赋值运算符的语义，还让智能指针类的用法不直观。复制或赋值后销毁源
+引用不符合预期。
+由于种种原因，不在程序中使用破坏性复制智能指针是明智的选择。
+
+深受欢迎的智能指针库
+Boost(www.boost.org)
+
+
+**使用流进行输入和输出
+
+std 命名空间中常用的 C++流类
+cout 标准输出流，通常被重定向到控制台
+cin 标准输入流，通常用于将数据读入变量
+cerr 用于显示错误信息的标准输出流
+fstream 用于操作文件的输入和输出流，继承了 ofstream 和 ifstream
+ofstream 用于操作文件的输出流类，即用于创建文件
+ifstream 用于操作文件的输入流类，即用于读取文件
+用于操作字符串的输入和输出流类，继承了 istringstream 和 ostringstream，通常用于
+在字符串和其 stringstream 他类型之间进行转换
+
+std 命名空间中常用于流的控制符
+输出控制符
+endl 插入一个换行符
+ends 插入一个空字符
+基数控制符
+dec 让流以十进制方式解释输入或显示输出
+hex 让流以十六进制方式解释输入或显示输出
+oct 让流以八进制方式解释输入或显示输出
+浮点数表示控制符
+fixed 让流以定点表示法显示数据
+scientific 让流以科学表示法显示数据
+<iomanip>控制符
+setprecision 设置小数精度
+setw 设置字段宽度
+setfill 设置填充字符
+setbase 设置基数，与使用 dec、hex 或 oct 等效
+setiosflag 通过类型为 std::ios_base::fmtflags 的掩码输入参数设置标志
+resetiosflag 将 std::ios_base::fmtflags 参数指定的标志重置为默认值
+
+***使用 std::fstream 处理文件
+要使用 std::fstream 类或其基类，需要包含头文件<fstream>
+fstream myFile;
+myFile.open("HelloFile.txt",ios_base::in|ios_base::out|ios_base::trunc);
+
+open( )接受两个参数：ios_base::trunc（即便
+指定的文件存在，也重新创建它）、ios_base::in（可读取文件）和 ios_base::out（可写
+入文件）。
+
+还有另一种打开文件流的方式，那就是使用构造函数：
+fstream myFile("HelloFile.txt",ios_base::in|ios_base::out|ios_base::trunc);
+如果只想打开文件进行写入，可使用如下代码：
+ofstream myFile("HelloFile.txt", ios_base::out);
+如果只想打开文件进行读取，可使用如下代码：
+ifstream myFile("HelloFile.txt", ios_base::in);
