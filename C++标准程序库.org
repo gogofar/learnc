@@ -1,0 +1,33 @@
+* C++标准程序库
+
+** 简介
+
+***语言特性
+void f() throw(bad_alloc); //f()只可能抛出这一个异常
+void f() throw(); //不抛出任何异常
+
+如果函数的一个或多个参数型别,定义于函数所处的namespace中,那么可以不必为函数指定
+namespace.
+namespace josutile{
+class File;
+void myGlobalFunc(const File&);
+...
+}
+
+josutile::File obj;
+myGlobalfunc(obj);//OK
+josutile::myGlobalfunc();
+
+注意: 在头文件中使用using directive相当不明智.
+
+
+*** 关键字explicit
+用于禁止"单参数"构造函数被用于自动型别转换.
+
+class Stack{
+explicit Stack(int size); //create Stack with initial size
+};
+
+Stack s;
+s =40;
+如果没有explicit, "自动型别转换"会将40转换为有40个元素的stack,并指派给s.
