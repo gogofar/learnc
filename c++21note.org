@@ -1,6 +1,16 @@
 #+TITLE: 学习C++笔记
 
 *C++21天
+**理解函数对象
+***概念
+函数对象是实现了 operator()的类的对
+象。虽然函数和函数指针也可归为函数对象，但实现了 operator()的类的对象才能保存状态（即类的成
+员属性的值），才能用于标准模板库（STL）算法。
+
+一元函数：接受一个参数的函数，如 f(x)。如果一元函数返回一个布尔值，则该函数称为谓词。
+二元函数：接受两个参数的函数，如 f(x, y)。如果二元函数返回一个布尔值，则该函数称为二元
+谓词。
+
 **STL String类
 ***实例化
 const char* constCStyleString = "Hello String!";
@@ -137,6 +147,7 @@ std::unordered_map 的插入和查找时间几乎是固定的，不受包含
 在包含的元素不太多的情况下，固定时间可能长得多，导致 std::unordered_map 的速度比
 std::map 慢。
 
+<<<<<<< Updated upstream
 ***实例化
 map<int, string> mapIntToStr1;
 18: multimap<int, string> mmapIntToStr1;
