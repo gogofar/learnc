@@ -1,8 +1,9 @@
 #+TITLE: 学习C++笔记
 
-*C++21天
-**理解函数对象
-***概念
+* C++21天
+
+** 理解函数对象
+*** 概念
 函数对象是实现了 operator()的类的对
 象。虽然函数和函数指针也可归为函数对象，但实现了 operator()的类的对象才能保存状态（即类的成
 员属性的值），才能用于标准模板库（STL）算法。
@@ -11,8 +12,8 @@
 二元函数：接受两个参数的函数，如 f(x, y)。如果二元函数返回一个布尔值，则该函数称为二元
 谓词。
 
-**STL String类
-***实例化
+** STL String类
+*** 实例化
 const char* constCStyleString = "Hello String!";
 std::string strFromConst (constCStyleString);
 
@@ -26,7 +27,7 @@ std::string strPartialCopy (constCStyleString, 5);
 // Initialize a string object to contain 10 'a's
 std::string strRepeatChars (10, 'a');
 
-***拼接字符串
+*** 拼接字符串
 要拼接字符串，可使用运算符+=，也可使用成员函数 append()：
 string sampleStr1 ("Hello");
 string sampleStr2 (" String! ");
@@ -34,7 +35,7 @@ sampleStr1 += sampleStr2; // use std::string::operator+=
 // alternatively use std::string::append()
 sampleStr1.append (sampleStr2); // (overloaded for char* too)
 
-***查找字符串
+*** 查找字符串
 // Find substring "day" in sampleStr, starting at position 0
 size_t charPos = sampleStr.find ("day", 0);
 // Check if the substring was found, compare against string::npos
@@ -43,7 +44,7 @@ if (charPos != string::npos) //npos指一个不存在的位置
 else
  cout << "Substring not found." << endl;
 
-***截短字符串
+*** 截短字符串
 string sampleStr ("Hello String! Wake up to a beautiful day!");
 sampleStr.erase (13, 28); // Hello String!
 
@@ -53,14 +54,14 @@ sampleStr.erase (iCharS); // iterator points to a specific character
 sampleStr.erase (sampleStr.begin (), sampleStr.end ()); // erase from begin to
 end
 
-***字符串大小写转换
+*** 字符串大小写转换
 transform(inStr.begin(), inStr.end(), inStr.begin(), ::toupper);
 
 transform(inStr.begin(), inStr.end(), inStr.begin(), ::tolower);
 
 
-**STL动态数组
-***实例化
+** STL动态数组
+*** 实例化
 std::vector<int> dynIntArray; // vector containing integers
 std::vector<float> dynFloatArray; // vector containing floats
 std::vector<Tuna> dynTunaArray; // vector containing Tunas
@@ -77,23 +78,23 @@ std::vector<int> tenElemInit (10, 90);
 要声明指向 list 中元素的迭代器，可以这样做：
 std::vector<int>::const_iterator elementInVec;
 
-***STL deque类
+*** STL deque类
 deque.push_back()
 deque.push_front()
 
 ** STL list 和 forward_list
-***实例化
+*** 实例化
 std::list<int> linkInts;
 std::list<float> listFloats; // list containing floats
 std::list<Tuna> listTunas; // list containing objects of type Tuna
 要声明一个指向 list 中元素的迭代器，可以像下面这样做：
 std::list<int>::const_iterator elementInList;
 
-***在 list 开头或末尾插入元素
+*** 在 list 开头或末尾插入元素
 linkInts.push_back (-1);
 linkInts.push_front (2001);
 
-***在 list 中间插入元素
+*** 在 list 中间插入元素
 iterator insert(iterator pos, const T& x)
 
 void insert(iterator pos, size_type n, const T& x)//插入n个x
@@ -104,7 +105,7 @@ void insert(iterator pos, InputIterator f, InputIterator l)
 *** 删除元素 反转元素
 list.erase()
 list.reverse()
-***元素排序
+*** 元素排序
 list.sort
 
 二元谓词参数方式
@@ -115,14 +116,14 @@ bool SortPredicate_Descending (const int& lhs, const int& rhs)
 }
 linkInts.sort (SortPredicate_Descending);
 
-**STL集合类
-***实例化
+** STL集合类
+*** 实例化
 std::set <Tuna> tunaSet;
 std::multiset <Tuna> tunaMSet;
-***迭代器
+*** 迭代器
 std::set<int>::const_iterator element;
 std::multiset<int>::const_iterator element;
-***排序谓词
+*** 排序谓词
 template <typename T>
 struct SortDescending
 {
@@ -136,8 +137,8 @@ struct SortDescending
 set <int, SortDescending<int>> setInts;
 multiset <int, SortDescending<int>> msetInts;
 
-**STL映射类
-***unordered_map
+** STL映射类
+*** unordered_map
 无论使用的键是什么，都不要编写依赖于 unordered_map 中元素排列顺序的代码。在
 unordered_map 中，元素相对顺序取决于众多因素，其中包括键、插入顺序、桶数等。
 这些容器为提高查找性能进行了优化，遍历其中的元素时，不要依赖于元素的排列顺序。
@@ -147,13 +148,12 @@ std::unordered_map 的插入和查找时间几乎是固定的，不受包含
 在包含的元素不太多的情况下，固定时间可能长得多，导致 std::unordered_map 的速度比
 std::map 慢。
 
-<<<<<<< Updated upstream
-***实例化
+*** 实例化
 map<int, string> mapIntToStr1;
 18: multimap<int, string> mmapIntToStr1;
 
-**STL算法
-***非变序算法
+** STL算法
+*** 非变序算法
 | 算法                      | 描述                                                                                                                          |
 |---------------------------+-------------------------------------------------------------------------------------------------------------------------------|
 | count()                   | 在指定范围内查找值与指定值匹配的所有元素                                                                                      |
@@ -170,7 +170,7 @@ map<int, string> mapIntToStr1;
 | lexicographical_compare() | 比较两个序列中的元素，以判断哪个序列更小                                                                                      |
 |                           |                                                                                                                               |
 
-***变序算法
+*** 变序算法
 | 算法                 | 描述                                                                                                                       |
 |----------------------+----------------------------------------------------------------------------------------------------------------------------|
 | 初始化算法           |                                                                                                                            |
@@ -208,7 +208,7 @@ map<int, string> mapIntToStr1;
 | upper_bound()        | 根据元素的值或二元谓词判断元素可能插入到排序集合中的最后一个位置，并返回一个指向该位置的迭代器                             |
 
 
-***复制和删除
+*** 复制和删除
 copy 沿向前的方向将源
 范围的内容赋给目标范围：
 auto lastElement = copy (numsInList.cbegin(), // start source range
@@ -240,7 +240,7 @@ numsInVec.erase (newEnd, numsInVec.end ()); // resizing
 
 
 
-***替换值
+*** 替换值
 cout << "Using 'std::replace' to replace value 5 by 8" << endl;
 replace (numsInVec.begin (), numsInVec.end (), 5, 8);
 
@@ -249,7 +249,7 @@ cout << "Using 'std::replace_if' to replace even values by -1" << endl;
 replace_if (numsInVec.begin (), numsInVec.end (),
  [](int element) {return ((element % 2) == 0); }, -1);
 
-***排序、在有序集合中搜索以及删除重复元素
+*** 排序、在有序集合中搜索以及删除重复元素
 要删除相邻的重复值，可使用 unique( )：
 auto newEnd = unique (numsInVec.begin (), numsInVec.end ());
 numsInVec.erase (newEnd, numsInVec.end ()); // to resize
@@ -259,7 +259,7 @@ bool elementFound = binary_search (numsInVec.begin (), numsInVec.end (), 2011);
 if (elementFound)
  cout << "Element found in the vector!" << endl
 
-***将范围分区
+*** 将范围分区
 std::partition( )将输入范围分为两部分：一部分满足一元谓词；另一部分不满足：
 bool IsEven (const int& num) // unary predicate
 {
@@ -272,14 +272,14 @@ std::partition( )不保证每个分区中元素的相对顺序不变。在相对
 时，应使用 std::stable_partition( )：
 stable_partition (numsInVec.begin(), numsInVec.end(), IsEven);
 
-**自适应容器
-***栈
+** 自适应容器
+*** 栈
 栈是 LIFO（后进先出）系统，只能从栈顶插入或删除元素。
 
-***队列
+*** 队列
 队列是 FIFO（先进先出）系统，元素被插入到队尾，最先插入的元素最先删除。
 
-****实例化
+**** 实例化
 std::stack <int> numsInStack;
 要创建存储类（如 Tuna）对象的栈，可使用下述代码：
 std::stack <Tuna> tunasInStack;
@@ -309,13 +309,13 @@ back()
 empty()
 size()
 
-***使用 STL 优先级队列
+*** 使用 STL 优先级队列
 STL priority_queue 是一个模板类，要使用它，也必须包含头文件<queue>。priority_queue 与 queue
 的不同之处在于，包含最大值（或二元谓词认为是最大值）的元素位于队首，且只能在队首
 执行操作。
 
-**使用STL位标志
-***使用std::bitset及其成员
+** 使用STL位标志
+*** 使用std::bitset及其成员
 运算符<< 将位序列的文本表示插入到输出流中
 cout << fourBits;
 
@@ -342,7 +342,7 @@ bitwise <4> result (~fourBits1);
 运算符[N] fourBits [2] = 0; // 将第 3 位设置为 0
 bool bNum = fourBits [2]; //读取第 3 位
 
-***std::bitset 的成员方法
+*** std::bitset 的成员方法
 set() 将序列中的所有位都设置为 1
 fourBits.set ( ); //现在序列包含 1111
 
@@ -366,7 +366,7 @@ count() 返回序列中值为 1 的位数
 size_t numBitsSet = fourBits.count ( );
 size_t numBitsReset = fourBits.size ( ) – fourBits.count ( );
 
-***vector<bool>
+*** vector<bool>
 实例化 vector<bool>的方式与实例化 vector 类似，有一些方便的重载构造函数可供使用：
 vector <bool> boolFlags1;
 例如，可创建一个这样的 vector，即它最初包含 10 个布尔元素，且每个元素都被初始化为 1（即
@@ -376,7 +376,7 @@ vector <bool> boolFlags2 (10, true);
 vector <bool> boolFlags2Copy (boolFlags2);
 
 
-**智能指针
+** 智能指针
 C++智能指针是包含重载运算符的类，其行为像常规指针，但智能指针能够及时、妥
 善地销毁动态分配的数据，并实现了明确的对象生命周期，因此更有价值。
 
@@ -387,7 +387,7 @@ spData->Display ();
 // Don't have to worry about de-allocation
 // (the smart pointer's destructor does it for you)
 
-***智能指针类型
+*** 智能指针类型
 深复制
 
 写时复制机制
@@ -417,7 +417,7 @@ C++11 摒弃了std::auto_ptr，您应使用 std::unque_ptr，这种指针不能�
 Boost(www.boost.org)
 
 
-**使用流进行输入和输出
+** 使用流进行输入和输出
 
 std 命名空间中常用的 C++流类
 cout 标准输出流，通常被重定向到控制台
@@ -448,7 +448,7 @@ setbase 设置基数，与使用 dec、hex 或 oct 等效
 setiosflag 通过类型为 std::ios_base::fmtflags 的掩码输入参数设置标志
 resetiosflag 将 std::ios_base::fmtflags 参数指定的标志重置为默认值
 
-***使用 std::fstream 处理文件
+*** 使用 std::fstream 处理文件
 要使用 std::fstream 类或其基类，需要包含头文件<fstream>
 fstream myFile;
 myFile.open("HelloFile.txt",ios_base::in|ios_base::out|ios_base::trunc);
@@ -463,3 +463,11 @@ fstream myFile("HelloFile.txt",ios_base::in|ios_base::out|ios_base::trunc);
 ofstream myFile("HelloFile.txt", ios_base::out);
 如果只想打开文件进行读取，可使用如下代码：
 ifstream myFile("HelloFile.txt", ios_base::in);
+
+** 继续前行
+*** 线程是什么
+C++规定由线程函数负责为您调用操作系统 API，这提高了多线程应用程
+序的可移植性。
+
+编写 C++应用程序时，如果您希望其中的线程是可移植的，请务必了解 Boost 线程库，
+其网址为 www.boost.org。
