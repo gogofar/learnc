@@ -31,3 +31,36 @@ explicit Stack(int size); //create Stack with initial size
 Stack s;
 s =40;
 如果没有explicit, "自动型别转换"会将40转换为有40个元素的stack,并指派给s.
+
+explicit同样可以阻绝"以赋值语法进行带有转型操作的初始化"
+
+Stack s(40); //ok
+Stack s = 40; // error
+
+X x;
+Y y(x);这是显示转换 explicit conversion
+
+X x;
+Y y = x; // implicit conversion 隐式转换
+
+*** 新的转型操作符 (Type Conversion Operators)
+
+1. static_cast
+
+float s;
+cout<< static_cast<int>(s); // print s as integers
+
+2. dynamic_cast
+将多太型别(polymorphic type)向下转型(downcast)为其实际静态型别(real static
+type). 这是唯一在执行期进行检验的转型动作.
+
+3. const_cast
+设定或去除型别的常数性,亦可去除volatile饰词
+
+4. reinterpret_cast
+此转型由实际编译器定义,一般不具有可移植性
+
+注意: 以上操作符都只接受一个参数. 比如:
+static_cast<Fraction>(15,100)
+它只用一个数值100,而不是设定分子15,分母100. 逗号变成了comma操作符,返回第二表达式.
+Fraction(15, 100); //fine
