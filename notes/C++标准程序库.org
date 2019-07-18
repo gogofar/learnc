@@ -2,10 +2,14 @@
 
 ** 简介
 
-***语言特性
+*** 语言特性
+template可以有缺省参数
+template <class T, class container=vector<T> > //两个“》”之间必须有空格
+
 void f() throw(bad_alloc); //f()只可能抛出这一个异常
 void f() throw(); //不抛出任何异常
 
+*** 命名空间namespace
 如果函数的一个或多个参数型别,定义于函数所处的namespace中,那么可以不必为函数指定
 namespace.
 namespace josutile{
@@ -44,9 +48,7 @@ X x;
 Y y = x; // implicit conversion 隐式转换
 
 *** 新的转型操作符 (Type Conversion Operators)
-
 1. static_cast
-
 float s;
 cout<< static_cast<int>(s); // print s as integers
 
@@ -64,3 +66,5 @@ type). 这是唯一在执行期进行检验的转型动作.
 static_cast<Fraction>(15,100)
 它只用一个数值100,而不是设定分子15,分母100. 逗号变成了comma操作符,返回第二表达式.
 Fraction(15, 100); //fine
+
+*** 常数静态成员(consst static members)的初始化
