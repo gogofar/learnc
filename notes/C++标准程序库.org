@@ -68,3 +68,14 @@ static_cast<Fraction>(15,100)
 Fraction(15, 100); //fine
 
 *** 常数静态成员(consst static members)的初始化
+
+
+*** 异常类别(Exception Class)的成员
+通用的异常评估手段:打印
+try{
+
+}catch(const std::Exception* error){
+std::cerr << error.what() << std::endl;
+}
+
+*** 从标准异常类派生
