@@ -1,0 +1,13 @@
+* 设置屏幕亮度
+查看最大亮度
+ /sys/class/backlight/radeon_bl0/max_brightness
+查看当前亮度
+ /sys/class/backlight/radeon_bl0/actual_brightness
+设置默认亮度
+sudo gedit /sys/class/backlight/radeon_bl0/brightness
+每个电脑位置有所区别,但都在backlight下吧
+
+* wine 微信看不到聊天界面打的字
+在命令行执行
+winetricks riched20
+[[images/linux/wine_weixin.png]]

@@ -102,5 +102,145 @@ ss.f  f分布
 *** 异常值分析
 1. 连续异常值
 [[images/bigdata/异常值.png]]
+先计算四分位, 得出上界和下界, k值一般取1.5-3, 上界和下界之外的都是异常值
+k取30算是非常异常了. 异常值有比较大的危害. 比如人均收入. 这个时候不如中位值有说
+服力. 要根据不同情况处理.
+
 2. 离散异常值
+离散属性定义范围外的所有值均为异常值
+
 3. 知识异常值
+在限定知识与常识范围外的所有值均为异常值
+比如身高这一项, 如果出现10米, 那就比较异常了.
+
+** 结构分析
+1. 静态结构分析
+比如,第一产业,第二产业,第三产业的比例
+
+2. 动态结构分析
+分析结构变化的趋势, 比如十一五期间三大产业结构的变化
+
+** 对比分析
+通过比较的方式达到认识与了解事实与数据的方法
+1. 比什么
+对比的是数据:
+绝对数: 收入, 身高等
+相对数:几个有联系的数联合起来组成一个新的数,
+比如结构相对数: 如合格率,考试通过率
+比例相对数:总体内用不同部分的数值进行比较. 比如农业,工业
+比较相对数: 用相似或同质的指标进行比较. 比如不同时期的同样商品的价格, 不同电商互
+联网公司的待遇水平
+动态相对数: 一般有时间概念在里面   比如增速
+强度相对数: 性质不同但有相互联系的属性, 比如人均, 亩产量, 密度
+
+2. 怎么比
+时间维度:现在与过去比,推断未来. 同比(与去年同期相比), 环比(与上一时期比)
+空间维度:不同城市,不同国家,不同地区. 公司不同部门等
+经验与计划比较: 历史上失业率达到多少容易暴乱
+
+** 分布分析
+直接获得概率分布:这个分布有可能有意义,有可能对比后才有意义
+判断是不是正态分布: 假设检验 偏态 峰态
+极大似然: 极大相似的样子,相似程度的表示
+比如一串数,一定存在这样一个分布,在该分布下对应的点的取值,也就是概率,他们加起来或
+者乘起来,最大,取对数就是极大似然, 怎么判断它更接近与正态分布还是t分布或者F分布,就是比较他们的极大似然,
+越大表示越接近
+
+分布分析还是比较难的
+
+** 编码实现
+
+
+*** satisfaction的分析
+import pandas as pd
+
+import numpy as np
+
+sl_s=df["satisfaction_level"] 抽出列satisfaction_level
+
+sl_s.isnull() 列出异常值  值为TRUE是异常值
+
+sl_s[sl_s.isnull()]
+
+df[df["satisfaction_level"].isnull()] 查看异常值具体
+
+sl_s.dropna() 丢弃异常值
+
+sl_s.fillna() 将异常值填充
+
+np.histogram(sl_s.values,bins=np.arrange(0.0,1.1,0.1)) 获取离散化分布的一串数字.
+从0到1.1,间隔取0.1. 输出表示 从0到0.1间的数字有多少个, 0.1到0.2之间的数字有多少
+个,依此类推
+
+
+*** LastEvaluation的分析
+le_s = df["Lastevaluation"]
+
+q_low=le_s.quantile[q=0.25] 计算四分位
+q_high=les.quantile[q=0.75]
+q_interval=q_high-q_low
+k=1.5
+
+le_s=les[le_s<q_high+k*q_interval][le_s>q_low-k*q_interval] 小于上界,大于下界
+
+len(le_s)查看多少 条数据
+
+np.histogram(le_s.values, bins=arange(0.0,1.1,0.1))  直方图
+
+*** NumberProject的分析
+np_s.values_counts()  每个值的出现次数
+np_s.values_counts(normalize=True) 每个值出现的比率
+np_s.values_counts(normalize=True).sort_index() 排序
+
+np_s.values_counts(bins=)  values_counts获得的区间是左开右闭, histogram获得的是
+左闭右开
+
+
+*** Salary列的分析
+s_s.where(s_s!="nme") 结果是 "nme"项都会被填充为NaN
+s_s.where(s_s!="nme").dropna() 把NaN的异常值剔除
+
+df=df.dropna(axis=0, how="any")  0表示删除整行  any表示只要这一行有一个空值属性
+就删除整行,how="all"表示所有的为空值才删除整行
+
+df.groupby("department").mean()  对数据以 "department"分组,然后取平均值
+
+切片
+df.loc[:,["lastevaluation","department"]].groupby("department")  取出"lastevaluation"
+"department"两列以"department"进行分组
+
+自己定义函数进行对比
+df.loc[:,["average_monthly_hours","department"]].groupby("department")["average_monthly_hours"].apply(lambda
+x:x.max()-x.min())
+
+** 可视化
+matplotlib  官网:matplotlib.org
+seaborn 官网: seaborn.pydata.org
+plotly 可直接放在网页当中
+
+*** 柱状图
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.set_style(style="whitegrid") 更改背景
+plt.title("SALARY")
+plt.xlabel("salary")
+plt.ylabel("Number")
+xtick(np.arange(len(df["salary"].value_counts())),df["salary"].value_counts().index)
+标注,后面参数是标注的值
+
+plt.axis([0,4,0,10000]) 分别是横轴最小值,最大值,纵轴最小值,最大值
+plt.bar(np.arange(len(df["salary"].values_counts())),df["salary"].values_counts())
+可以移动柱状的位置,还可以加上width参数,设置柱状的宽度如下:
+plt.bar(np.arange(len(df["salary"].values_counts()))+0.5,df["salary"].values_counts(),width=0.5)
+第一个参数为横座标,第二个参数为纵座标
+
+for x,y in zip(np.arange(len(df["salary"].values_counts()))),df["salary"].values_counts()
+    plt.text(x,y,y,ha="center",va="bottom")  前两个参数是座标,第三个参数y是标的
+    值,第四个参数是横向对齐,第五个参数是纵向对齐
+
+sns.countplot(x="salary",data=df) 画出不同颜色的柱状
+sns.countplot(x="salary",hue="department",data=df) 以"department"为分割,又进行一
+次count
+
+plt.show()
